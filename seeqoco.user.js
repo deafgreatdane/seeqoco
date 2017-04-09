@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Seeqoco
 // @namespace    http://tampermonkey.net/
-// @version      0.1.3
+// @version      0.1.4
 // @description  Add some fun to the virtual office space
 // @author       ben.johnson@seeq.com
 // @match        https://app.sococo.com/*
@@ -13,20 +13,20 @@ var officeSettings = [
      "room": "room-33",
      "officeDecorations":[
          { "type":"carpet" ,
-          "css" : { "background-color":"#cccccc", "background-image":"url(https://deafgreatdane.github.io/images/check_green2.svg)","background-size":"150px"}
+          "css" : { "background-color":"#cccccc", "background-image":"url(https://deafgreatdane.github.io/seeqoco/images/check_green2.svg)","background-size":"150px"}
          },
          { "type": "furniture",
-          "css": {"background-image":"url(https://deafgreatdane.github.io/images/couch.png)",
+          "css": {"background-image":"url(https://deafgreatdane.github.io/seeqoco/images/couch.png)",
                   "background-size":"50px",
                   "top": 2,"width": "50px",
                   "height":"80px","left":"8px"}},    
          { "type": "furniture",
-          "css": {"background-image":"url(https://deafgreatdane.github.io/images/greatdane.png)",
+          "css": {"background-image":"url(https://deafgreatdane.github.io/seeqoco/images/greatdane.png)",
                   "background-size":"30px",
                   "top": 32,"width": "50px",
                   "height":"30px","left":"20px"}},
           { "type": "furniture",
-          "css": {"background-image":"url(https://deafgreatdane.github.io/images/deer.png)",
+          "css": {"background-image":"url(https://deafgreatdane.github.io/seeqoco/images/deer.png)",
                   "background-size":"35px",
                   "top": 22,"width": "50px",
                   "height":"80px","left":"120px"}}
