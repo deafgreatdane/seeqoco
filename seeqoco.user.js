@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Seeqoco
 // @namespace    http://tampermonkey.net/
-// @version      0.1.1
+// @version      0.1.2
 // @description  Add some fun to the virtual office space
 // @author       ben.johnson@seeq.com
 // @match        https://app.sococo.com/*
