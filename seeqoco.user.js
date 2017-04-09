@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Seeqoco
 // @namespace    http://tampermonkey.net/
-// @version      0.1.2
+// @version      0.1.3
 // @description  Add some fun to the virtual office space
 // @author       ben.johnson@seeq.com
 // @match        https://app.sococo.com/*
@@ -20,6 +20,11 @@ var officeSettings = [
                   "background-size":"50px",
                   "top": 2,"width": "50px",
                   "height":"80px","left":"8px"}},    
+         { "type": "furniture",
+          "css": {"background-image":"url(https://deafgreatdane.github.io/images/greatdane.png)",
+                  "background-size":"30px",
+                  "top": 32,"width": "50px",
+                  "height":"30px","left":"20px"}},
           { "type": "furniture",
           "css": {"background-image":"url(https://deafgreatdane.github.io/images/deer.png)",
                   "background-size":"35px",
@@ -108,6 +113,12 @@ function tweakThings() {
                     }
                     room.prepend(el);
                 });
+            }
+            if ( office.hasOwnProperty('animals')) {
+                    var room = $("DIV[data-room-id='" + office.room + "']");
+                    var el = $("<div></div>");
+                    el.css('position','absolute');
+                
             }
         }
     });
