@@ -8,6 +8,10 @@
 // @grant        none
 // @require http://code.jquery.com/jquery-latest.js
 // ==/UserScript==
+
+var ooo = [ 
+    //{email:"jason.rust@seeq.com", summary: "PTO"} 
+];
 var officeSettings = [
     { "email":"ben.johnson@seeq.com" ,
      "room": "room-33",
@@ -33,6 +37,8 @@ var officeSettings = [
                ]
      }
     },
+    {"email":"jason.rust@seeq.com",
+     "room":"room-19"},
     { "email":"dakota.kanner@seeq.com" ,
      "room": "room-2",
      animals: { },
@@ -81,7 +87,7 @@ SeeqocoAnimals.prototype.deferredMove = function(petEl, pet) {
         seeqoco.animals.animalHangouts[roomNumber].prepend(petEl);
         self.deferredMove(petEl,pet);
     };
-    
+
     var stayStill = (1 + Math.random())/2 * this.hangoutDuration * 1000;
     window.setTimeout(retval,stayStill);
 };
@@ -113,7 +119,7 @@ SeeqocoAnimals.prototype.setupRoom = function(office,beforeElement) {
 function Seeqoco() {
     // the list of rooms that allow animals
     this.animals = new SeeqocoAnimals();
-
+    this.ooo = {};
     this.newOffice = function(office) {
         console.log("sqc: S " +office.email);
         if ( office.hasOwnProperty('room') ) {
@@ -135,12 +141,23 @@ function Seeqoco() {
                 });
             }
             this.animals.setupRoom(office,firstChild);
+            if ( this.ooo.hasOwnProperty(office.email)) {
+                var el = $("<div></div>");
+                el.css('position','absolute');
+                el.text(this.ooo[office.email]);
+                el.css({left: 5, width: 50, height: 40, top: 10, backgroundColor: "white", opacity: "50%", color: "red", fontSize: "10px", textAlign: "center"});
+                firstChild.before(el);
+            }
         }
     };
 
     this.initDone = false;
 
     this.primarySetup = function() {
+        // var oooRooms = {};
+        for ( var i = 0 ; i < ooo.length ; i ++ ) {
+            this.ooo[ooo[i].email] = ooo[i].summary;
+        }
         if ( this.initDone) {
             return;
         } 
