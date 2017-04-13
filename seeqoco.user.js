@@ -1,16 +1,15 @@
 // ==UserScript==
 // @name         Seeqoco
 // @namespace    http://tampermonkey.net/
-// @version      0.1.5
+// @version      0.1.6
 // @description  Add some fun to the virtual office space
 // @author       ben.johnson@seeq.com
 // @match        https://app.sococo.com/*
 // @grant        none
-// @require http://code.jquery.com/jquery-latest.js
 // ==/UserScript==
-
 var ooo = [ 
-    //{email:"jason.rust@seeq.com", summary: "PTO"} 
+//  {"email":"jason.rust@seeq.com","summary":"PTO"},
+//{"email":"michael.risse@seeq.com","summary":"Risse PTO"}
 ];
 var officeSettings = [
     { "email":"ben.johnson@seeq.com" ,
@@ -39,6 +38,8 @@ var officeSettings = [
     },
     {"email":"jason.rust@seeq.com",
      "room":"room-19"},
+    {"email":"tabitha.colie@seeq.com",
+     "room":"room-29"},
     { "email":"dakota.kanner@seeq.com" ,
      "room": "room-2",
      animals: { },
@@ -71,6 +72,16 @@ var officeSettings = [
     }
 ];
 
+
+function SeeqocoOoo() {
+    this.dataUrl = "http://localhost:3000";
+    
+//    this.load = function() {
+//            $.get(this.dataUrl, function(data)) {
+ //                 }
+
+   // }
+}
 function SeeqocoAnimals() {
     this.animalHangouts = [];
     // the max number of seconds a pet will hangout in one room.
@@ -123,8 +134,10 @@ function Seeqoco() {
     this.newOffice = function(office) {
         console.log("sqc: S " +office.email);
         if ( office.hasOwnProperty('room') ) {
-            var room = $("DIV[data-room-id='" + office.room + "']");
-            var firstChild = room.find(":first-child");
+            // TODO how to get a more accurate selector for jquery
+            // if  not .first(), sometimes this matches multiple elements
+            var room = $("DIV[data-room-id='" + office.room + "']").first();
+            var firstChild = room.children().first();//room.find(":first-child");
             if ( office.hasOwnProperty('officeDecorations') ) {
                 _.forEach(office.officeDecorations, function(deco) {
                     var el = $("<div></div>");
@@ -154,7 +167,6 @@ function Seeqoco() {
     this.initDone = false;
 
     this.primarySetup = function() {
-        // var oooRooms = {};
         for ( var i = 0 ; i < ooo.length ; i ++ ) {
             this.ooo[ooo[i].email] = ooo[i].summary;
         }
@@ -200,16 +212,19 @@ var roomDecorations = {
 
 // ///////////////////////////////////////  setup
 (function() {
+  //  console.log
     function waitToLoad() {
         console.log("sqc: checking load");
-        var room = $("DIV[data-room-id='room-1']");
+        if ( ! window.hasOwnProperty("jQuery")) {
+            window.setTimeout(waitToLoad,4000);
+            return;
+        }
+        var room = window.jQuery("DIV[data-room-id='room-1']");
         if ( room.height() <= 0 ) {
             window.setTimeout(waitToLoad,1000);
             return;
         }
         seeqoco.primarySetup();
     }
-    $(function() {
-        window.setTimeout(waitToLoad,3000);
-    });
+    window.setTimeout(waitToLoad,3000);
 })();
